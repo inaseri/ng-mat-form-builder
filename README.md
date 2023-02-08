@@ -1,27 +1,113 @@
-# NgFormBuilderWorkspace
+# Ng Mat Form Builder
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 15.1.1.
+This library was generated with [Angular CLI](https://github.com/angular/angular-cli) version 15.1.0.
 
-## Development server
+This library help you to create forms fast and clean without no more repeated codes.
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+In this package we are using angular material and angular reactive forms.
 
-## Code scaffolding
+## Usage
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+#### Install package with this command in root of your project
 
-## Build
+`npm i ng-mat-form-builder`
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+#### In your module file, import the package by this line
 
-## Running unit tests
+```typescript
+import { NgMatFormBuilderModule } from "ng-mat-form-builder";
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+@NgModule({
+  imports: [
+    ...
+    NgMatFormBuilderModule,
+  ]
+})
+```
 
-## Running end-to-end tests
+#### Open your component and put this codes on your typescript file
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+```typescript
+import {FormGroup} from "@angular/forms";
 
-## Further help
+createSettingReceptor = [
+  {
+    type: 'text',
+    label: 'Fist Name',
+    formControlName: 'firstName',
+    validators: [Validators.required],
+    hint: null,
+    options: null,
+    required: true,
+    isMultiple: null,
+  },
+];
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+create(formEvent: FormGroup): void {
+  // you will be get the resut of form after submit
+}
+```
+
+
+#### Next that open your html file in component
+
+
+```html
+<lib-ng-mat-form-builder [items]="createSettingReceptor"
+                         (formResult)="create($event)"
+                         [saveButtonName]="'submit'">
+</lib-ng-mat-form-builder>
+```
+
+## Apis
+
+#### inputs
+
+| name            | type                   | description                                                 | required |
+|-----------------|------------------------|-------------------------------------------------------------|----------|
+| items           | array[]                | list of items in form                                       | true     |
+| formAppearance  | MatFormFieldAppearance | 'fill' or 'outline'                                         | true     |
+| saveButtonName  | string                 | name of submit button (as default that set in 'save')       | false    |
+| saveButtonColor | string                 | color of your submit button (as default that set in 'warn') | false    |
+| showSaveButton  | boolean                | default is true                                             | false    |
+| checkForValid   | boolean                | default is true                                             | false    |
+| buttonWidth     | string                 | button size in px or % or anything that you need            | false    |
+| patchValue      | object                 | this would be set your data if you want                     | false    |
+| resetForm       | boolean                | this would be reset form, if you set it true                | false    |
+
+
+
+### outputs
+
+| name             | type      | description                                                                     |
+|------------------|-----------|---------------------------------------------------------------------------------|
+| formResult       | FormGroup | result of form                                                                  |
+| valueChangesForm | FromGroup | get value changes of form, also you can set the value into form with patchValue |
+
+
+## Structure of items
+
+you should use this object as items type, note that the keys has a default value in this object are not required.
+
+```typescript
+export class FormBuilderModel {
+  type: any; // select, number, text, tel, date;
+  label: any;
+  formControlName: any;
+  validators: any; // array or null;
+  hint: any;
+  options: any; // array or null;
+  required = false;
+  isTextArea = false;
+  isMultiple = false;
+  isAutoComplete = false;
+  disabled = false;
+  isFile = false;
+}
+
+export class FormBuilderSelectOption {
+  name: any;
+  value: any;
+}
+
+```
