@@ -15,12 +15,12 @@ In this package we are using angular material and angular reactive forms.
 #### In your module file, import the package by this line
 
 ```typescript
-import { NgMatFormBuilderModule } from "ng-mat-form-builder";
+import {NgMatFormBuilderModule} from "ng-mat-form-builder";
 
 @NgModule({
   imports: [
     ...
-    NgMatFormBuilderModule,
+      NgMatFormBuilderModule,
   ]
 })
 ```
@@ -43,16 +43,19 @@ createSettingReceptor = [
   },
 ];
 
-create(formEvent: FormGroup): void {
+create(formEvent
+:
+FormGroup
+):
+void {
   // you will be get the resut of form after submit
 }
 ```
 
-
 #### Next that open your html file in component
 
-
 ```html
+
 <lib-ng-mat-form-builder [items]="createSettingReceptor"
                          (formResult)="create($event)"
                          [saveButtonName]="'submit'">
@@ -75,8 +78,6 @@ create(formEvent: FormGroup): void {
 | patchValue      | object                 | this would be set your data if you want                     | false    |
 | resetForm       | boolean                | this would be reset form, if you set it true                | false    |
 
-
-
 ### outputs
 
 | name             | type      | description                                                                     |
@@ -84,12 +85,13 @@ create(formEvent: FormGroup): void {
 | formResult       | FormGroup | result of form                                                                  |
 | valueChangesForm | FromGroup | get value changes of form, also you can set the value into form with patchValue |
 
-
 ## Structure of items
 
 you should use this object as items type, note that the keys has a default value in this object are not required.
 
 ```typescript
+import {HttpHeaders} from "@angular/common/http";
+
 export class FormBuilderModel {
   type: any; // select, number, text, tel, date;
   label: any;
@@ -103,6 +105,10 @@ export class FormBuilderModel {
   isAutoComplete = false;
   disabled = false;
   isFile = false;
+  // the tree property is required when you wants to use type file.
+  link = string; // for file uploader download link
+  header = HttpHeaders; // for set headser in download link (Authorozation, contentType, ...)
+  downloadLinkTitle = string; 
 }
 
 export class FormBuilderSelectOption {
@@ -111,3 +117,14 @@ export class FormBuilderSelectOption {
 }
 
 ```
+
+####
+
+if you wants to upload file and show download link of that in form builder, you had to set type in 'file' and set
+isFile 'true', also you have this props for using that:
+
+| name              | type        | description                                     |
+|-------------------|-------------|-------------------------------------------------|
+| link              | string      | link for download file                          |
+| header            | HttpHeaders | for set headers                                 |
+| downloadLinkTitle | string      | the string that will be appear for user in Html |

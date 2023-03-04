@@ -7,6 +7,7 @@ import {MatDatepickerModule} from "@angular/material/datepicker";
 import {MatNativeDateModule, MatOptionModule} from "@angular/material/core";
 import {MatSelectModule} from "@angular/material/select";
 import {NgClass, NgForOf, NgIf, NgStyle} from "@angular/common";
+import {HttpClientModule} from "@angular/common/http";
 
 
 @NgModule({
@@ -25,7 +26,7 @@ import {NgClass, NgForOf, NgIf, NgStyle} from "@angular/common";
     NgClass,
     NgForOf,
     NgIf,
-
+    HttpClientModule
   ],
   exports: [
     NgMatFormBuilderComponent
