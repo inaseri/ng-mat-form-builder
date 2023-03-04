@@ -43,11 +43,7 @@ createSettingReceptor = [
   },
 ];
 
-create(formEvent
-:
-FormGroup
-):
-void {
+create(formEvent: FormGroup): void {
   // you will be get the resut of form after submit
 }
 ```
@@ -105,10 +101,10 @@ export class FormBuilderModel {
   isAutoComplete = false;
   disabled = false;
   isFile = false;
-  // the tree property is required when you wants to use type file.
+  // if you set link in your items, it will be appear the download link.
   link = string; // for file uploader download link
   header = HttpHeaders; // for set headser in download link (Authorozation, contentType, ...)
-  downloadLinkTitle = string; 
+  downloadLinkTitle = string;
 }
 
 export class FormBuilderSelectOption {

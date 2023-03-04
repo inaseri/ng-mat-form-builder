@@ -111,8 +111,8 @@ interface FormObject {
                     >
                       {{ form.get(item.formControlName)?.value.name || item.label }}
                     </button>
-                    <mat-hint *ngIf='item?.isFile && patchValue'>
-                      <a href='javascript:void(0)' (click)='openFile(item.link, item.header)'>{{ item.downloadLinkTitle}}</a>
+                    <mat-hint *ngIf='item?.isFile && item?.link'>
+                      <a href='javascript:void(0)' (click)='openFile(item?.link, item?.header)'>{{ item?.downloadLinkTitle}}</a>
                     </mat-hint>
 
                   </div>
