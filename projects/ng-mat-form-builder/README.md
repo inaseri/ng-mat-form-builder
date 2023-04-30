@@ -100,6 +100,7 @@ export class FormBuilderModel {
   isMultiple = false;
   isAutoComplete = false;
   disabled = false;
+  readonly = false;
   isFile = false;
   // if you set link in your items, it will be appear the download link.
   link = string; // for file uploader download link

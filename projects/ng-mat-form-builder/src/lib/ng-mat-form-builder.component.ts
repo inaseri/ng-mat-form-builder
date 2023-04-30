@@ -31,7 +31,8 @@ interface FormObject {
                                   *ngIf="!item.options && item.type !== 'date' && !item?.isTextArea && item.type !== 'ckEditor' && item.type"
                                   [type]='item.type'
                                   [required]='item.required'
-                                  [readonly]='item?.disabled'
+                                  [readonly]='item?.readonly'
+                                  [disabled]="item?.disabled"
                           />
 
                           <!--Normal Select Option Control-->
@@ -46,26 +47,14 @@ interface FormObject {
                               </mat-option>
                           </mat-select>
 
-                          <!--Select With Auto Complete Option Control-->
-                          <div *ngIf='item.options && item?.isAutoComplete'>
-                              <mat-select [multiple]='item.isMultiple'
-                                          [formControlName]='item.formControlName'
-                                          [disabled]='item?.disabled'>
-                                  <input (keyup)='onKey($event.target, i)' class='w-100' name='search' autofocus
-                                         [autofocus]='true'/>
-                                  <mat-option *ngFor='let option of item.options' [value]='option.value'>
-                                      {{ option.name }}
-                                  </mat-option>
-                              </mat-select>
-                          </div>
-
                           <!--Normal Date Picker Control-->
                           <input
                                   matInput
                                   *ngIf="item.type === 'date'"
                                   [matDatepicker]='picker'
                                   [formControlName]='item.formControlName'
-                                  [disabled]='item?.disabled'
+                                  [readonly]='item?.readonly'
+                                  [disabled]="item?.disabled"
                           />
                           <mat-datepicker-toggle [for]='picker' matSuffix
                                                  *ngIf="item.type === 'date'"></mat-datepicker-toggle>
@@ -78,7 +67,8 @@ interface FormObject {
                                   *ngIf='item?.isTextArea'
                                   [formControlName]='item.formControlName'
                                   [required]='item.required'
-                                  [readonly]='item?.disabled'
+                                  [readonly]='item?.readonly'
+                                  [disabled]="item?.disabled"
                           ></textarea>
 
                           <!--Normal File Control-->
@@ -87,33 +77,35 @@ interface FormObject {
                                   type='file'
                                   [formControlName]='item.formControlName'
                                   [required]='item.required'
-                                  [readonly]='item?.disabled'
+                                  [readonly]='item?.readonly'
+                                  [disabled]="item?.disabled"
                           />
 
                           <mat-hint *ngIf='item.hint'>{{ item.hint }}</mat-hint>
                       </mat-form-field>
 
-                    <input
-                      name='uploadedFile'
-                      class='d-none'
-                      type='file'
-                      [id]="item.formControlName"
-                      (change)='addFile($event, item.formControlName)'
-                      *ngIf='item?.isFile'
-                    />
-                    <button
-                      mat-raised-button
-                      color='accent'
-                      class='w-100 mt-3 mb-3'
-                      (click)='triggerFileSelect(item.formControlName)'
-                      *ngIf='item?.isFile'
-                      type='button'
-                    >
-                      {{ form.get(item.formControlName)?.value.name || item.label }}
-                    </button>
-                    <mat-hint *ngIf='item?.isFile && item?.link'>
-                      <a href='javascript:void(0)' (click)='openFile(item?.link, item?.header)'>{{ item?.downloadLinkTitle}}</a>
-                    </mat-hint>
+                      <input
+                              name='uploadedFile'
+                              class='d-none'
+                              type='file'
+                              [id]="item.formControlName"
+                              (change)='addFile($event, item.formControlName)'
+                              *ngIf='item?.isFile'
+                      />
+                      <button
+                              mat-raised-button
+                              color='accent'
+                              class='w-100 mt-3 mb-3'
+                              (click)='triggerFileSelect(item.formControlName)'
+                              *ngIf='item?.isFile'
+                              type='button'
+                      >
+                          {{ form.get(item.formControlName)?.value.name || item.label }}
+                      </button>
+                      <mat-hint *ngIf='item?.isFile && item?.link'>
+                          <a href='javascript:void(0)'
+                             (click)='openFile(item?.link, item?.header)'>{{ item?.downloadLinkTitle}}</a>
+                      </mat-hint>
 
                   </div>
               </div>
