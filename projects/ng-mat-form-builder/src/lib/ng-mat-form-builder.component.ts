@@ -21,14 +21,14 @@ interface FormObject {
 
                   <div class='col' *ngIf="item?.type !== 'hidden'">
                       <mat-form-field appearance='outline' class='w-100'
-                                      *ngIf="!item?.isFile && item.type !== 'ckEditor'">
+                                      *ngIf="!item?.isFile">
                           <mat-label>{{ item.label }}</mat-label>
 
                           <!--Normal Input Control-->
                           <input
                                   matInput
                                   [formControlName]='item.formControlName'
-                                  *ngIf="!item.options && item.type !== 'date' && !item?.isTextArea && item.type !== 'ckEditor' && item.type"
+                                  *ngIf="!item.options && item.type !== 'date' && !item?.isTextArea && item.type"
                                   [type]='item.type'
                                   [required]='item.required'
                                   [readonly]='item?.readonly'
@@ -169,7 +169,7 @@ export class NgMatFormBuilderComponent implements OnInit, OnChanges {
     const group: FormObject = {};
     for (const item of this.items) {
       const validators = item.validators;
-      group[item.formControlName] = ['', validators];
+      group[item.formControlName] = [{value: '', disabled: item.disabled}, validators];
       if (item.options && item.isAutoComplete) {
         item.tempOptions = item.options;
       }

@@ -12,6 +12,10 @@ In this package we are using angular material and angular reactive forms.
 
 `npm i ng-mat-form-builder`
 
+#### Note that this package use angular material as design system, so you need to install that
+
+`ng add @angular/material`
+
 #### In your module file, import the package by this line
 
 ```typescript
@@ -105,7 +109,7 @@ export class FormBuilderModel {
   // if you set link in your items, it will be appear the download link.
   link = string; // for file uploader download link
   header = HttpHeaders; // for set headser in download link (Authorozation, contentType, ...)
-  downloadLinkTitle = string; 
+  downloadLinkTitle = string;
 }
 
 export class FormBuilderSelectOption {
