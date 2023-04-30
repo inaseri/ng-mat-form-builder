@@ -28,7 +28,7 @@ interface FormObject {
                           <input
                                   matInput
                                   [formControlName]='item.formControlName'
-                                  *ngIf="!item.options && item.type !== 'date' && !item?.isTextArea && item.type"
+                                  *ngIf="!item.options && item.type !== 'date' && item.type !== 'autoComplete' && !item?.isTextArea && item.type"
                                   [type]='item.type'
                                   [required]='item.required'
                                   [readonly]='item?.readonly'
@@ -47,18 +47,20 @@ interface FormObject {
                           </mat-select>
 
                           <!--Auto Complete Select Option Control-->
-                          <input type="text" *ngIf="item.type === 'autoComplete'"
-                                 [placeholder]="item.label"
-                                 matInput
-                                 [required]='item.required'
-                                 [readonly]='item?.readonly'
-                                 [formControlName]="item.formControlName"
-                                 [matAutocomplete]="auto">
-                          <mat-autocomplete #auto="matAutocomplete">
-                              <mat-option *ngFor="let option of item.autoCompleteOptions" [value]="option">
-                                  {{option}}
-                              </mat-option>
-                          </mat-autocomplete>
+                          <div *ngIf="item.type === 'autoComplete'">
+                              <input type="text"
+                                     [placeholder]="item.label"
+                                     matInput
+                                     [required]='item.required'
+                                     [readonly]='item?.readonly'
+                                     [formControlName]="item.formControlName"
+                                     [matAutocomplete]="auto">
+                              <mat-autocomplete #auto="matAutocomplete">
+                                  <mat-option *ngFor="let option of item.autoCompleteOptions" [value]="option">
+                                      {{option}}
+                                  </mat-option>
+                              </mat-autocomplete>
+                          </div>
 
 
                           <!--Normal Date Picker Control-->
