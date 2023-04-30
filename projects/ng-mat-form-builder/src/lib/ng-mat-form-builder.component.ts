@@ -50,6 +50,8 @@ interface FormObject {
                           <input type="text" *ngIf="item.type === 'autoComplete'"
                                  [placeholder]="item.label"
                                  matInput
+                                 [required]='item.required'
+                                 [readonly]='item?.readonly'
                                  [formControlName]="item.formControlName"
                                  [matAutocomplete]="auto">
                           <mat-autocomplete #auto="matAutocomplete">
