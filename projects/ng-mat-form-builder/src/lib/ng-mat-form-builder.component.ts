@@ -46,6 +46,19 @@ interface FormObject {
                               </mat-option>
                           </mat-select>
 
+                          <!--Auto Complete Select Option Control-->
+                          <input type="text"
+                                 [placeholder]="item.label"
+                                 matInput
+                                 [formControlName]="item.formControlName"
+                                 [matAutocomplete]="auto">
+                          <mat-autocomplete #auto="matAutocomplete">
+                              <mat-option *ngFor="let option of item.autoCompleteOptions" [value]="option">
+                                  {{option}}
+                              </mat-option>
+                          </mat-autocomplete>
+
+
                           <!--Normal Date Picker Control-->
                           <input
                                   matInput
