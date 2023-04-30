@@ -32,7 +32,6 @@ interface FormObject {
                                   [type]='item.type'
                                   [required]='item.required'
                                   [readonly]='item?.readonly'
-                                  [disabled]="item?.disabled"
                           />
 
                           <!--Normal Select Option Control-->
@@ -54,7 +53,6 @@ interface FormObject {
                                   [matDatepicker]='picker'
                                   [formControlName]='item.formControlName'
                                   [readonly]='item?.readonly'
-                                  [disabled]="item?.disabled"
                           />
                           <mat-datepicker-toggle [for]='picker' matSuffix
                                                  *ngIf="item.type === 'date'"></mat-datepicker-toggle>
@@ -68,7 +66,6 @@ interface FormObject {
                                   [formControlName]='item.formControlName'
                                   [required]='item.required'
                                   [readonly]='item?.readonly'
-                                  [disabled]="item?.disabled"
                           ></textarea>
 
                           <!--Normal File Control-->
@@ -78,7 +75,6 @@ interface FormObject {
                                   [formControlName]='item.formControlName'
                                   [required]='item.required'
                                   [readonly]='item?.readonly'
-                                  [disabled]="item?.disabled"
                           />
 
                           <mat-hint *ngIf='item.hint'>{{ item.hint }}</mat-hint>
