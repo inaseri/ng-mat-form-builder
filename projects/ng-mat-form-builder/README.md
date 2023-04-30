@@ -93,7 +93,7 @@ you should use this object as items type, note that the keys has a default value
 import {HttpHeaders} from "@angular/common/http";
 
 export class FormBuilderModel {
-  type: any; // select, number, text, tel, date;
+  type: any; // select, number, text, tel, date, autoComplete;
   label: any;
   formControlName: any;
   validators: any; // array or null;
@@ -106,6 +106,7 @@ export class FormBuilderModel {
   disabled = false;
   readonly = false;
   isFile = false;
+  autoCompleteOptions: [] // if you are using autoComplete
   // if you set link in your items, it will be appear the download link.
   link = string; // for file uploader download link
   header = HttpHeaders; // for set headser in download link (Authorozation, contentType, ...)

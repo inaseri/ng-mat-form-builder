@@ -47,7 +47,7 @@ interface FormObject {
                           </mat-select>
 
                           <!--Auto Complete Select Option Control-->
-                          <input type="text"
+                          <input type="text" *ngIf="item.type === 'autoComplete'"
                                  [placeholder]="item.label"
                                  matInput
                                  [formControlName]="item.formControlName"
