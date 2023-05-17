@@ -53,7 +53,7 @@ interface FormObject {
                             [formControlName]="item.formControlName"
                             [disabled]="item?.disabled"
                           >
-                            <input (keyup)="onKey($event.target.value, i)" class="w-100" name="search" autofocus [autofocus]="true" />
+                            <input (keyup)="onKey($event.target, i)" class="w-100" name="search" autofocus [autofocus]="true" />
                             <mat-option *ngFor="let option of item.options" [value]="option.value">
                               {{ option.name }}
                             </mat-option>
@@ -211,10 +211,10 @@ export class NgMatFormBuilderComponent implements OnInit, OnChanges {
   }
 
   onKey(event: any, itemIndex: any): any {
-    if (!event) {
+    if (!event.value) {
       this.items[itemIndex].options = this.items[itemIndex].tempOptions;
     }
-    const filterValue = event.toLowerCase();
+    const filterValue = event.value.toLowerCase();
     this.items[itemIndex].options = this.items[itemIndex].options.filter((option: any) =>
       option.name.toLowerCase().includes(filterValue)
     );
