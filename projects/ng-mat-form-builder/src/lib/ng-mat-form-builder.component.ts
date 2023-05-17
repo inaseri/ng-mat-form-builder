@@ -46,21 +46,19 @@ interface FormObject {
                               </mat-option>
                           </mat-select>
 
-                          <!--Auto Complete Select Option Control-->
-                          <div *ngIf="item.type === 'autoComplete'">
-                              <input type="text"
-                                     [placeholder]="item.label"
-                                     matInput
-                                     [required]='item.required'
-                                     [readonly]='item?.readonly'
-                                     [formControlName]="item.formControlName"
-                                     [matAutocomplete]="auto">
-                              <mat-autocomplete #auto="matAutocomplete">
-                                  <mat-option *ngFor="let option of item.autoCompleteOptions" [value]="option">
-                                      {{option}}
-                                  </mat-option>
-                              </mat-autocomplete>
-                          </div>
+                        <!--Select With Auto Complete Option Control-->
+                        <div *ngIf="item.options && item?.type === 'autoComplete'">
+                          <mat-select
+                            [multiple]="item.isMultiple"
+                            [formControlName]="item.formControlName"
+                            [disabled]="item?.disabled"
+                          >
+                            <input (keyup)="onKey($event.target.value, i)" class="w-100" name="search" autofocus [autofocus]="true" />
+                            <mat-option *ngFor="let option of item.options" [value]="option.value">
+                              {{ option.name }}
+                            </mat-option>
+                          </mat-select>
+                        </div>
 
 
                           <!--Normal Date Picker Control-->
@@ -198,17 +196,6 @@ export class NgMatFormBuilderComponent implements OnInit, OnChanges {
     this.formResult.emit(this.form);
   }
 
-  onKey(event: any, itemIndex: any): any {
-    if (!event.value) {
-      this.items[itemIndex].options = this.items[itemIndex].tempOptions;
-    }
-
-    const filterValue = event.value.toLowerCase();
-    this.items[itemIndex].options = this.items[itemIndex].options.filter((option: any) =>
-      option.name.toLowerCase().includes(filterValue)
-    );
-  }
-
   addFile(files: any, formControlName: string): void {
     this.form.get(formControlName)?.patchValue(files?.target.files?.item(0));
   }
@@ -221,6 +208,16 @@ export class NgMatFormBuilderComponent implements OnInit, OnChanges {
     this.http.get(link, {headers: headers}).subscribe((response: any) => {
       window.open(response?.link, '_blank')
     });
+  }
+
+  onKey(event: any, itemIndex: any): any {
+    if (!event) {
+      this.items[itemIndex].options = this.items[itemIndex].tempOptions;
+    }
+    const filterValue = event.toLowerCase();
+    this.items[itemIndex].options = this.items[itemIndex].options.filter((option: any) =>
+      option.name.toLowerCase().includes(filterValue)
+    );
   }
 
 }
